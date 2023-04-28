@@ -13,16 +13,6 @@ function FavoriteButton({ movie }: Props) {
   const { mutate: mutateFavorites } = useFavorites();
   const { data: currentUser, mutate } = useCurrentUser();
 
-  const toastStyle = {
-    background: "white",
-    color: "black",
-    fontWeight: "bold",
-    fontSize: "16px",
-    padding: "15px",
-    borderRadius: "9999px",
-    maxWidth: "1000px",
-  };
-
   //Checks if the selected movie is in favorite movies
   const isFavorite = useMemo(() => {
     const list = currentUser?.favoriteMovies || [];
@@ -35,6 +25,16 @@ function FavoriteButton({ movie }: Props) {
   // Adds/removes selected movie to/from favorite movies
   const toggleFavorites = useCallback(async () => {
     let data;
+
+    const toastStyle = {
+      background: "white",
+      color: "black",
+      fontWeight: "bold",
+      fontSize: "16px",
+      padding: "15px",
+      borderRadius: "9999px",
+      maxWidth: "1000px",
+    };
 
     //Sends a request to delete the movie with the selected index
     if (isFavorite > -1) {

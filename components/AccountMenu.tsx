@@ -1,6 +1,7 @@
 import { signOut } from "next-auth/react";
 import React from "react";
 import useCurrentUser from "@/hooks/useCurrentUser";
+import Image from "next/image";
 
 interface Props {
   visible?: boolean;
@@ -17,10 +18,12 @@ function AccountMenu({ visible }: Props) {
     <div className="bg-black w-48 absolute top-8 right-[-15px] py-5 flex-col border-2 border-gray-800 flex">
       <div className="flex flex-col gap-3">
         <div className="px-3 group/item flex flex-row gap-3 items-center w-full">
-          <img
+          <Image
+            width={320}
+            height={320}
             className="w-8 rounded-md"
-            src="/images/default-blue.png"
-            alt=""
+            src="/profile.png"
+            alt="Account picture"
           />
           <p className="text-white text-sm group-hover/item:underline">
             {currentUser?.name}

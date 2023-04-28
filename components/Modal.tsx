@@ -60,7 +60,7 @@ function Modal({ visible, onClose }: Props) {
   useEffect(() => {
     if (!movie) return;
     movieFetch();
-  }, [movie]);
+  }, [movie, movieFetch]);
 
   //Displays modal by setting it's visibility class
   useEffect(() => {

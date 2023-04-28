@@ -6,6 +6,7 @@ import Input from "@/components/Input";
 import useInput from "@/hooks/useInput";
 import toast, { Toaster } from "react-hot-toast";
 import Head from "next/head";
+import Image from "next/image";
 
 export const getServerSideProps = async (context: NextPageContext) => {
   //Redirects the user back to the home page if they are already logged in
@@ -80,7 +81,16 @@ const Login = () => {
     } else {
       setFormIsValid(false);
     }
-  }, [enteredEmail, enteredPassword, enteredName, formIsValid]);
+  }, [
+    enteredEmail,
+    enteredPassword,
+    enteredName,
+    formIsValid,
+    enteredEmailIsValid,
+    enteredNameIsValid,
+    enteredPasswordIsValid,
+    variant,
+  ]);
 
   //Toggles form between "Sing in" and "Register" options and resets all input fields
   const toggleVariant = useCallback(() => {
@@ -91,7 +101,7 @@ const Login = () => {
     resetPasswordInput();
     resetNameInput();
     setErrorMsg("");
-  }, []);
+  }, [resetEmailInput, resetPasswordInput, resetNameInput]);
 
   //Function for logging in an existing user
   const login = useCallback(async () => {
@@ -143,7 +153,15 @@ const Login = () => {
     } catch (error) {
       console.log(error);
     }
-  }, [enteredEmail, enteredName, enteredPassword, login]);
+  }, [
+    enteredEmail,
+    enteredName,
+    enteredPassword,
+    login,
+    enteredEmailIsValid,
+    enteredPasswordIsValid,
+    enteredNameIsValid,
+  ]);
 
   return (
     <>
@@ -158,10 +176,16 @@ const Login = () => {
         <div className="bg-black w-full h-full lg:bg-opacity-50">
           <Toaster position="top-center" />
           <div className="px-12 py-5">
-            <img src="/logo.png" className="h-12" alt="Logo" />
+            <Image
+              width={1280}
+              height={346}
+              src="/logo.png"
+              className="h-7 w-auto md:h-10 lg:h-12"
+              alt="Logo"
+            />
           </div>
           <div className="flex justify-center">
-            <div className="bg-black bg-opacity-70 px-16 py-12 self-center mt-2 lg:w-2/5 lg:max-w-md rounded-md w-full">
+            <div className="bg-black bg-opacity-70 px-8 lg:px-16 py-12 self-center mt-2 lg:w-2/5 lg:max-w-md rounded-md w-full">
               <h2 className="text-white text-4xl mb-8 font-semibold">
                 {variant === "login" ? "Sign in" : "Register"}
               </h2>

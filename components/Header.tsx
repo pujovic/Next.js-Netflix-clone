@@ -7,6 +7,7 @@ import {
 import MobileMenu from "./MobileMenu";
 import AccountMenu from "./AccountMenu";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 function Header() {
   const [showAccountMenu, setShowAccountMenu] = useState(false);
@@ -41,7 +42,13 @@ function Header() {
   return (
     <header className={`${isScrolled && "bg-neutral-950/80"}`}>
       <div className="flex items-center space-x-4 md:space-x-10">
-        <img src="/logo.png" alt="logo" className="h-4 lg:h-7" />
+        <Image
+          width={1280}
+          height={346}
+          src="/logo.png"
+          className="h-4 w-auto md:h-5 lg:h-7"
+          alt="Logo"
+        />
 
         <div
           onClick={toggleMobileMenu}
@@ -99,7 +106,13 @@ function Header() {
           className="flex flex-row items-center gap-2 cursor-pointer relative"
         >
           <div className="w-6 h-6 rounded-md overflow-hidden">
-            <img src="/profile.png" alt="account menu" />
+            <Image
+              width={320}
+              height={320}
+              className="w-8 rounded-md"
+              src="/profile.png"
+              alt="Account picture"
+            />
           </div>
           <ChevronDownIcon
             className={`w-4 text-white fill-white transition ${
