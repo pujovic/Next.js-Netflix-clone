@@ -235,7 +235,6 @@ const Login = () => {
               </div>
               {errorMsg && <p>{errorMsg}</p>}
               <button
-                disabled={!formIsValid}
                 onClick={variant === "login" ? login : register}
                 className={`bg-red-600 py-3 text-white rounded-md w-full mt-10 ${
                   !formIsValid && "opacity-20"
