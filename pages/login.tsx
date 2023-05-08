@@ -105,6 +105,9 @@ const Login = () => {
 
   //Function for logging in an existing user
   const login = useCallback(async () => {
+    if (!enteredEmailIsValid || !enteredPasswordIsValid) {
+      return;
+    }
     try {
       const data = await signIn("credentials", {
         email: enteredEmail,
@@ -163,6 +166,23 @@ const Login = () => {
     enteredNameIsValid,
   ]);
 
+  //Submitting the form using the Enter key
+  useEffect(() => {
+    const keyDownHandler = (event: any) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        document.getElementById("submitbtn")?.focus();
+        variant === "login" ? login() : register();
+      }
+    };
+
+    document.addEventListener("keydown", keyDownHandler);
+
+    return () => {
+      document.removeEventListener("keydown", keyDownHandler);
+    };
+  }, [variant, login, register]);
+
   return (
     <>
       <Head>
@@ -184,11 +204,20 @@ const Login = () => {
               alt="Logo"
             />
           </div>
+          <p className="absolute top-2 right-2 text-xs md:text-sm font-semibold text-yellow-500 bg-black bg-opacity-80 p-1 md:p-4">
+            Demo account: <br />
+            username:
+            <span className="text-green-600 md:text-base"> test@demo.try</span>
+            <br />
+            password:
+            <span className="text-green-600 md:text-base"> securepass</span>
+          </p>
           <div className="flex justify-center">
             <div className="bg-black bg-opacity-70 px-8 lg:px-16 py-12 self-center mt-2 lg:w-2/5 lg:max-w-md rounded-md w-full">
               <h2 className="text-white text-4xl mb-8 font-semibold">
                 {variant === "login" ? "Sign in" : "Register"}
               </h2>
+
               <div className="flex flex-col">
                 {variant === "register" && (
                   <Input
@@ -235,6 +264,7 @@ const Login = () => {
               </div>
               {errorMsg && <p>{errorMsg}</p>}
               <button
+                id="submitbtn"
                 onClick={variant === "login" ? login : register}
                 className={`bg-red-600 py-3 text-white rounded-md w-full mt-10 ${
                   !formIsValid && "opacity-20"
